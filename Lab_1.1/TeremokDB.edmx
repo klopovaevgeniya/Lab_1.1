@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TEREMOKModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BLINI">
+          <Key>
+            <PropertyRef Name="ID_BLINI" />
+          </Key>
+          <Property Name="ID_BLINI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAMEBLIN" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PRICE" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BUYERS">
+          <Key>
+            <PropertyRef Name="ID_BUYERS" />
+          </Key>
+          <Property Name="ID_BUYERS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_EMPLOYEE" Type="int" />
+          <Property Name="ID_BLINI" Type="int" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID_EMPLOYEE" />
+          </Key>
+          <Property Name="ID_EMPLOYEE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMPLOYEENAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__BUYERS__ID_BLINI__4E88ABD4">
+          <End Role="BLINI" Type="Self.BLINI" Multiplicity="0..1" />
+          <End Role="BUYERS" Type="Self.BUYERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BLINI">
+              <PropertyRef Name="ID_BLINI" />
+            </Principal>
+            <Dependent Role="BUYERS">
+              <PropertyRef Name="ID_BLINI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BUYERS__ID_EMPLO__4D94879B">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+          <End Role="BUYERS" Type="Self.BUYERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="ID_EMPLOYEE" />
+            </Principal>
+            <Dependent Role="BUYERS">
+              <PropertyRef Name="ID_EMPLOYEE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TEREMOKModelContainer">
+          <EntitySet Name="BLINI" EntityType="Self.BLINI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BUYERS" EntityType="Self.BUYERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BUYERS__ID_BLINI__4E88ABD4" Association="Self.FK__BUYERS__ID_BLINI__4E88ABD4">
+            <End Role="BLINI" EntitySet="BLINI" />
+            <End Role="BUYERS" EntitySet="BUYERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BUYERS__ID_EMPLO__4D94879B" Association="Self.FK__BUYERS__ID_EMPLO__4D94879B">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="BUYERS" EntitySet="BUYERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TEREMOKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BLINI">
+          <Key>
+            <PropertyRef Name="ID_BLINI" />
+          </Key>
+          <Property Name="ID_BLINI" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAMEBLIN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRICE" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="BUYERS" Relationship="Self.FK__BUYERS__ID_BLINI__4E88ABD4" FromRole="BLINI" ToRole="BUYERS" />
+        </EntityType>
+        <EntityType Name="BUYERS">
+          <Key>
+            <PropertyRef Name="ID_BUYERS" />
+          </Key>
+          <Property Name="ID_BUYERS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_EMPLOYEE" Type="Int32" />
+          <Property Name="ID_BLINI" Type="Int32" />
+          <NavigationProperty Name="BLINI" Relationship="Self.FK__BUYERS__ID_BLINI__4E88ABD4" FromRole="BUYERS" ToRole="BLINI" />
+          <NavigationProperty Name="EMPLOYEE" Relationship="Self.FK__BUYERS__ID_EMPLO__4D94879B" FromRole="BUYERS" ToRole="EMPLOYEE" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID_EMPLOYEE" />
+          </Key>
+          <Property Name="ID_EMPLOYEE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMPLOYEENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BUYERS" Relationship="Self.FK__BUYERS__ID_EMPLO__4D94879B" FromRole="EMPLOYEE" ToRole="BUYERS" />
+        </EntityType>
+        <Association Name="FK__BUYERS__ID_BLINI__4E88ABD4">
+          <End Role="BLINI" Type="Self.BLINI" Multiplicity="0..1" />
+          <End Role="BUYERS" Type="Self.BUYERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BLINI">
+              <PropertyRef Name="ID_BLINI" />
+            </Principal>
+            <Dependent Role="BUYERS">
+              <PropertyRef Name="ID_BLINI" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BUYERS__ID_EMPLO__4D94879B">
+          <End Role="EMPLOYEE" Type="Self.EMPLOYEE" Multiplicity="0..1" />
+          <End Role="BUYERS" Type="Self.BUYERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLOYEE">
+              <PropertyRef Name="ID_EMPLOYEE" />
+            </Principal>
+            <Dependent Role="BUYERS">
+              <PropertyRef Name="ID_EMPLOYEE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TEREMOKEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BLINI" EntityType="Self.BLINI" />
+          <EntitySet Name="BUYERS" EntityType="Self.BUYERS" />
+          <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" />
+          <AssociationSet Name="FK__BUYERS__ID_BLINI__4E88ABD4" Association="Self.FK__BUYERS__ID_BLINI__4E88ABD4">
+            <End Role="BLINI" EntitySet="BLINI" />
+            <End Role="BUYERS" EntitySet="BUYERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BUYERS__ID_EMPLO__4D94879B" Association="Self.FK__BUYERS__ID_EMPLO__4D94879B">
+            <End Role="EMPLOYEE" EntitySet="EMPLOYEE" />
+            <End Role="BUYERS" EntitySet="BUYERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TEREMOKModelContainer" CdmEntityContainer="TEREMOKEntities">
+          <EntitySetMapping Name="BLINI">
+            <EntityTypeMapping TypeName="TEREMOKModel.BLINI">
+              <MappingFragment StoreEntitySet="BLINI">
+                <ScalarProperty Name="ID_BLINI" ColumnName="ID_BLINI" />
+                <ScalarProperty Name="NAMEBLIN" ColumnName="NAMEBLIN" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BUYERS">
+            <EntityTypeMapping TypeName="TEREMOKModel.BUYERS">
+              <MappingFragment StoreEntitySet="BUYERS">
+                <ScalarProperty Name="ID_BUYERS" ColumnName="ID_BUYERS" />
+                <ScalarProperty Name="ID_EMPLOYEE" ColumnName="ID_EMPLOYEE" />
+                <ScalarProperty Name="ID_BLINI" ColumnName="ID_BLINI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEE">
+            <EntityTypeMapping TypeName="TEREMOKModel.EMPLOYEE">
+              <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="ID_EMPLOYEE" ColumnName="ID_EMPLOYEE" />
+                <ScalarProperty Name="EMPLOYEENAME" ColumnName="EMPLOYEENAME" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
